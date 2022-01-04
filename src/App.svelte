@@ -15,7 +15,7 @@
 </script>
 
 <main>
-    <h1>École - Règles d'isolement personnels et élèves</h1>
+    <h1>École - Règles d'isolement élèves et personnels</h1>
     <h2>(à partir le 3 janvier 2022)</h2>
     <Cas/>
     {#if positif_value != null}
