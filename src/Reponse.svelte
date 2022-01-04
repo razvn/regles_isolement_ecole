@@ -7,7 +7,9 @@
     import ReponsePlus12SansVaccinPositif from "./ReponsePlus12SansVaccinPositif.svelte";
     import ReponsePlus12VaccinContact from "./ReponsePlus12VaccinContact.svelte";
     import ReponsePlus12SansVaccinContact from "./ReponsePlus12SansVaccinContact.svelte";
+    import {afterUpdate} from "svelte";
 
+    let div
     let adulte_value = null
     adulte.subscribe(value => adulte_value = value)
     let vaccin_value = null
@@ -16,38 +18,48 @@
     positif.subscribe(value => positif_value = value)
 
     $: resp = adulte_value !== null && ((adulte_value === false && positif_value !== null) || (adulte_value === true && vaccin_value !== null && positif_value !== null))
+
+    afterUpdate(() => {
+        if (div) {
+            console.log("Scrolling response to", div.offsetTop)
+            window.scrollTo(0, div.offsetTop)
+        }
+    })
 </script>
 
 {#if resp === true}
-    <hr/>
-    <h3>Réponse</h3>
-    <div class="response">
-        {#if adulte_value === false}
-            {#if positif_value === true}
-                <ReponseMoins12Positif/>
-            {:else if positif_value === false}
-               <ReponseMoins12Contact/>
-            {/if}
-        {:else if adulte_value === true}
-            {#if positif_value === true}
-                {#if vaccin_value === true}
-                    <ReponsePlus12VaccinPositif />
-                {:else if vaccin_value === false}
-                    <ReponsePlus12SansVaccinPositif />
+    <div bind:this={div}>
+        <hr/>
+        <h3>Réponse</h3>
+        <div class="response">
+            {#if adulte_value === false}
+                {#if positif_value === true}
+                    <ReponseMoins12Positif/>
+                {:else if positif_value === false}
+                    <ReponseMoins12Contact/>
                 {/if}
-            {:else if positif_value === false}
-                {#if vaccin_value === true}
-                    <ReponsePlus12VaccinContact />
-                {:else if vaccin_value === false}
-                    <ReponsePlus12SansVaccinContact />
+            {:else if adulte_value === true}
+                {#if positif_value === true}
+                    {#if vaccin_value === true}
+                        <ReponsePlus12VaccinPositif/>
+                    {:else if vaccin_value === false}
+                        <ReponsePlus12SansVaccinPositif/>
+                    {/if}
+                {:else if positif_value === false}
+                    {#if vaccin_value === true}
+                        <ReponsePlus12VaccinContact/>
+                    {:else if vaccin_value === false}
+                        <ReponsePlus12SansVaccinContact/>
+                    {/if}
                 {/if}
             {/if}
-        {/if}
-    </div>
+        </div>
 
-    <div>
-        <hr>
-        <small>(<a href="https://www.education.gouv.fr/covid19-mesures-pour-les-ecoles-colleges-et-lycees-modalites-pratiques-continuite-pedagogique-et-305467">source</a>)</small>
+        <div>
+            <hr>
+            <small>(<a
+                    href="https://www.education.gouv.fr/covid19-mesures-pour-les-ecoles-colleges-et-lycees-modalites-pratiques-continuite-pedagogique-et-305467">source</a>)</small>
+        </div>
     </div>
 {/if}
 <style>
@@ -55,6 +67,7 @@
         text-align: left;
         padding: 1em;
     }
+
     small {
         color: gray;
     }
