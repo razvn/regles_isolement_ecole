@@ -13,8 +13,8 @@
 <hr/>
 <h3>Votre statut vaccinal</h3>
 
-<button class:selected="{vaccin_value === true}" class="gray" on:click={() => updateVaccin(true)}>Vaccination complète</button>
-<button class:selected="{vaccin_value === false}" class="gray" on:click={() => updateVaccin(false)}>Vaccination incomplète</button>
+<button class:selected="{vaccin_value === true}" on:click={() => updateVaccin(true)}>Vaccination complète</button>
+<button class:selected="{vaccin_value === false}" on:click={() => updateVaccin(false)}>Vaccination incomplète</button>
 
 <style>
 </style>

@@ -26,6 +26,8 @@ button {
 	font-size: 20px;
 	margin: 4px 20px;
 	min-width: 300px;
+	color: black;
+	background-color: lightgray;
 }
 
 .red {
@@ -36,11 +38,6 @@ button {
 .orange {
 	color: white;
 	background-color: orange;
-}
-
-.gray {
-	color: black;
-	background-color: lightgray;
 }
 
 
